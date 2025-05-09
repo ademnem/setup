@@ -1,2 +1,4 @@
-# setup
-set up for personal configuration
+# Setup
+This repository holds everything necesary to setup my personal configuration.
+
+Execute: `./setup`
