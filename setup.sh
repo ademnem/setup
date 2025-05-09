@@ -4,18 +4,16 @@ sudo apt upgrade
 
 
 # Downloading Personal Packages
-echo -n "Checking for nvim... "
-if ! snap list nvim &> /dev/null; then
-    echo "Done"
-    echo -n "Installing nvim... "
-    sudo snap install neovim
-    echo "Done"
-else
-    echo "Found"
-fi
 apt_pkgs=(
+    # for neovim
+    "cmake" # and clangd
+    "ninja-build"
+    "gettext"
+    "unzip"
+    "curl"
+    "build-essential"
+
     "tmux" # tmux
-    "cmake" # clangd
     "npm" # webdev
     "ripgrep" # nvim
 )
@@ -30,6 +28,18 @@ for name in "${apt_pkgs[@]}"; do
         echo "Found"
     fi
 done
+echo -n "Checking for nvim... "
+if ! which nvim &> /dev/null; then
+    echo "Done"
+    echo -n "Installing nvim... "
+    git clone https://github.com/neovim/neovim.git
+    cd neovim
+    make CMAKE_BUILD_TYPE=Release
+    sudo make install
+    echo "Done"
+else
+    echo "Found"
+fi
 
 
 # Adding Personal Config Files
